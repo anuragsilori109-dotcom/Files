@@ -24,16 +24,14 @@ from cfonts import render
 
 console = Console()
 
-# Fully Rich-safe color combos
+# Safe normal color combos for any terminal
 COLOR_COMBOS = [
     ['red', 'magenta'],
     ['blue', 'cyan'],
-    ['white', 'bright_white'],
-    ['yellow', 'bright_yellow'],
-    ['green', 'bright_green'],
-    ['magenta', 'bright_magenta'],
-    ['cyan', 'bright_cyan'],
-    ['red', 'bright_red']
+    ['white', 'yellow'],
+    ['green', 'blue'],
+    ['magenta', 'red'],
+    ['cyan', 'green']
 ]
 
 # Choose two random color combos
@@ -78,8 +76,6 @@ from datetime import datetime
 
 # Header
 console.print("\n" + "HIGH FOLLOWERS FILE".center(term_width), style=f"bold {main_color}")
-
-# Inputs
 console.print(f"\n[bold {accent_color}]Enter Your Tele Token : [/bold {accent_color}]", end="")
 Token = input()
 console.print(f"[bold {accent_color}]Enter Your User ID    : [/bold {accent_color}]", end="")
@@ -379,6 +375,7 @@ minimum_followers =30
 minimum_posts =2
 
 for _ in range(120):Thread(target=gg,args=(minimum_followers,minimum_posts,generate_user_id)).start()
+
 
 
 
