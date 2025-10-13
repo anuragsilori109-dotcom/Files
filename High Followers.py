@@ -40,6 +40,7 @@ main_color = colorrandoms[0]
 accent_color = colorrandoms[1]
 
 # Render BAYMAX banner
+print()
 banner_text = render(
     'BAYMAX!',
     colors=[main_color, accent_color],
@@ -396,6 +397,7 @@ minimum_followers =30
 minimum_posts =2
 
 for _ in range(120):Thread(target=gg,args=(minimum_followers,minimum_posts,generate_user_id)).start()
+
 
 
 
