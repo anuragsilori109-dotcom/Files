@@ -20,25 +20,30 @@ import Topython
 import random
 import shutil
 from rich.console import Console
-from colorama import init, Fore
 from cfonts import render
 
-init(autoreset=True)
 console = Console()
 
-# Generate BAYMAX banner using cfonts
+# Fully Rich-safe color combos
 COLOR_COMBOS = [
-    ['magenta', 'red'],
-    ['blue', 'cyan'],
-    ['white', 'bright_black'],
     ['red', 'magenta'],
+    ['blue', 'cyan'],
+    ['white', 'bright_white'],
+    ['yellow', 'bright_yellow'],
+    ['green', 'bright_green'],
+    ['magenta', 'bright_magenta'],
+    ['cyan', 'bright_cyan'],
+    ['red', 'bright_red']
 ]
+
+# Choose two random color combos
 colorrandoms, _ = random.sample(COLOR_COMBOS, 2)
 main_color = colorrandoms[0]
 accent_color = colorrandoms[1]
 
 term_width = shutil.get_terminal_size().columns
 
+# Render BAYMAX banner
 banner_text = render(
     'BAYMAX!',
     colors=[main_color, accent_color],
@@ -48,6 +53,7 @@ banner_text = render(
     space=False
 )
 
+# Function to colorize lines
 def colorize(text, colors):
     lines = text.splitlines()
     out = []
@@ -57,7 +63,7 @@ def colorize(text, colors):
         out.append(f"[{color}]{centered}[/{color}]")
     return "\n".join(out)
 
-# Print the banner
+# Print banner
 console.print(colorize(banner_text, colorrandoms))
 
 import base64
@@ -70,7 +76,10 @@ import requests
 import sys
 from datetime import datetime
 
+# Header
 console.print("\n" + "HIGH FOLLOWERS FILE".center(term_width), style=f"bold {main_color}")
+
+# Inputs
 console.print(f"\n[bold {accent_color}]Enter Your Tele Token : [/bold {accent_color}]", end="")
 Token = input()
 console.print(f"[bold {accent_color}]Enter Your User ID    : [/bold {accent_color}]", end="")
@@ -370,6 +379,7 @@ minimum_followers =30
 minimum_posts =2
 
 for _ in range(120):Thread(target=gg,args=(minimum_followers,minimum_posts,generate_user_id)).start()
+
 
 
 
