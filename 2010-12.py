@@ -35,35 +35,59 @@ from colorama import Fore, init
 init(autoreset=True)
 import random
 import shutil
-from rich.console import Console
-art_text = '''
-▀█████████▄     ▄████████ ▄██   ▄      ▄▄▄▄███▄▄▄▄      ▄████████ ▀████    ▐████▀
-  ███    ███   ███    ███ ███   ██▄  ▄██▀▀▀███▀▀▀██▄   ███    ███   ███▌   ████▀ 
-  ███    ███   ███    ███ ███▄▄▄███  ███   ███   ███   ███    ███    ███  ▐███   
- ▄███▄▄▄██▀    ███    ███ ▀▀▀▀▀▀███  ███   ███   ███   ███    ███    ▀███▄███▀   
-▀▀███▀▀▀██▄  ▀███████████ ▄██   ███  ███   ███   ███ ▀███████████    ████▀██▄    
-  ███    ██▄   ███    ███ ███   ███  ███   ███   ███   ███    ███   ▐███  ▀███   
-  ███    ███   ███    ███ ███   ███  ███   ███   ███   ███    ███  ▄███     ███▄ 
-▄█████████▀    ███    █▀   ▀█████▀    ▀█   ███   █▀    ███    █▀  ████       ███▄
-'''
+from cfonts import render
+term_width = shutil.get_terminal_size().columns
 COLOR_COMBOS = [
-    ['magenta', 'red'],
-    ['blue', 'cyan'],
-    ['white', 'bright_black'],
     ['red', 'magenta'],
+    ['blue', 'cyan'],
+    ['white', 'yellow'],
+    ['green', 'blue'],
+    ['magenta', 'red'],
+    ['cyan', 'green']
 ]
 colorrandoms, _ = random.sample(COLOR_COMBOS, 2)
+main_color = colorrandoms[0]
+accent_color = colorrandoms[1]
+print()
+banner_text = render(
+    'BAYMAX!',
+    colors=[main_color, accent_color],
+    align='center',
+    font='block',
+    background='black',
+    space=False
+)
+print(banner_text)
+import random
+import shutil
+import uuid
+import requests
+import sys
+from datetime import datetime
 term_width = shutil.get_terminal_size().columns
-console = Console()
-def colorize(text, colors):
-    lines = text.splitlines()
-    out = []
-    for i, line in enumerate(lines):
-        centered = line.center(term_width)
-        color = colors[i % len(colors)]
-        out.append(f"[{color}]{centered}[/{color}]")
-    return "\n".join(out)
-console.print(colorize(art_text, colorrandoms))
+ANSI_COLORS = {
+    "black": "\033[30m",
+    "red": "\033[31m",
+    "green": "\033[32m",
+    "yellow": "\033[33m",
+    "blue": "\033[34m",
+    "magenta": "\033[35m",
+    "cyan": "\033[36m",
+    "white": "\033[37m",
+    "reset": "\033[0m"
+}
+COLOR_COMBOS = [
+    ['red', 'magenta'],
+    ['blue', 'cyan'],
+    ['white', 'yellow'],
+    ['green', 'blue'],
+    ['magenta', 'red'],
+    ['cyan', 'green']
+]
+colorrandoms, _ = random.sample(COLOR_COMBOS, 2)
+main_color = colorrandoms[0]
+accent_color = colorrandoms[1]
+
 import os, requests
 import sys
 import time
@@ -192,4 +216,5 @@ for _ in range(100):
 for t in threads:
     t.join()
     
+
 
