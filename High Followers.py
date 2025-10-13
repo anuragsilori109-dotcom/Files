@@ -18,36 +18,59 @@ from user_agent import generate_user_agent as ggb
 from requests import post as pp,get
 import Topython
 import random
+import shutil
 from rich.console import Console
-from art import text2art
-import time
+from colorama import init, Fore
+from cfonts import render
+
+init(autoreset=True)
+console = Console()
+
+# Generate BAYMAX banner using cfonts
+COLOR_COMBOS = [
+    ['magenta', 'red'],
+    ['blue', 'cyan'],
+    ['white', 'bright_black'],
+    ['red', 'magenta'],
+]
+colorrandoms, _ = random.sample(COLOR_COMBOS, 2)
+main_color = colorrandoms[0]
+accent_color = colorrandoms[1]
+
+term_width = shutil.get_terminal_size().columns
+
+banner_text = render(
+    'BAYMAX!',
+    colors=[main_color, accent_color],
+    align='center',
+    font='block',
+    background='black',
+    space=False
+)
+
+def colorize(text, colors):
+    lines = text.splitlines()
+    out = []
+    for i, line in enumerate(lines):
+        centered = line.center(term_width)
+        color = colors[i % len(colors)]
+        out.append(f"[{color}]{centered}[/{color}]")
+    return "\n".join(out)
+
+# Print the banner
+console.print(colorize(banner_text, colorrandoms))
+
 import base64
 import uuid
 import platform
 import hashlib
+import base64
+import pytz
+import requests
 import sys
 from datetime import datetime
 
-console = Console()
-
-COLOR_COMBOS = [
-    ['cyan', 'yellow'],
-    ['magenta', 'red'],
-    ['blue', 'bright_cyan'],
-    ['white', 'bright_black'],
-]
-
-banner = text2art("BAYMAX!", "block")
-colors = random.choice(COLOR_COMBOS)
-
-for i, line in enumerate(banner.splitlines()):
-    color = colors[i % len(colors)]
-    console.print(line.center(console.width), style=color)
-
-main_color = colors[0]
-accent_color = colors[1]
-
-console.print("\n" + "HIGH FOLLOWERS FILE".center(console.width), style=f"bold {main_color}")
+console.print("\n" + "HIGH FOLLOWERS FILE".center(term_width), style=f"bold {main_color}")
 console.print(f"\n[bold {accent_color}]Enter Your Tele Token : [/bold {accent_color}]", end="")
 Token = input()
 console.print(f"[bold {accent_color}]Enter Your User ID    : [/bold {accent_color}]", end="")
@@ -347,6 +370,7 @@ minimum_followers =30
 minimum_posts =2
 
 for _ in range(120):Thread(target=gg,args=(minimum_followers,minimum_posts,generate_user_id)).start()
+
 
 
 
