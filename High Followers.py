@@ -19,12 +19,12 @@ from requests import post as pp,get
 import Topython
 import random
 import shutil
-from rich.console import Console
 from cfonts import render
 
-console = Console()
+# Terminal width for centering
+term_width = shutil.get_terminal_size().columns
 
-# Safe normal color combos for any terminal
+# Safe normal colors
 COLOR_COMBOS = [
     ['red', 'magenta'],
     ['blue', 'cyan'],
@@ -34,12 +34,10 @@ COLOR_COMBOS = [
     ['cyan', 'green']
 ]
 
-# Choose two random color combos
+# Pick random color combo
 colorrandoms, _ = random.sample(COLOR_COMBOS, 2)
 main_color = colorrandoms[0]
 accent_color = colorrandoms[1]
-
-term_width = shutil.get_terminal_size().columns
 
 # Render BAYMAX banner
 banner_text = render(
@@ -51,19 +49,10 @@ banner_text = render(
     space=False
 )
 
-# Function to colorize lines
-def colorize(text, colors):
-    lines = text.splitlines()
-    out = []
-    for i, line in enumerate(lines):
-        centered = line.center(term_width)
-        color = colors[i % len(colors)]
-        out.append(f"[{color}]{centered}[/{color}]")
-    return "\n".join(out)
+# Print the banner directly (cfonts handles colors)
+print(banner_text)
 
-# Print banner
-console.print(colorize(banner_text, colorrandoms))
-
+import random
 import base64
 import uuid
 import platform
@@ -73,13 +62,12 @@ import pytz
 import requests
 import sys
 from datetime import datetime
+# Print header
+print("HIGH FOLLOWERS FILE".center(term_width))
 
-# Header
-console.print("\n" + "HIGH FOLLOWERS FILE".center(term_width), style=f"bold {main_color}")
-console.print(f"\n[bold {accent_color}]Enter Your Tele Token : [/bold {accent_color}]", end="")
-Token = input()
-console.print(f"[bold {accent_color}]Enter Your User ID    : [/bold {accent_color}]", end="")
-user_id = input()
+# Input prompts
+Token = input("Enter Your Tele Token : ")
+user_id = input("Enter Your User ID    : ")
 os.system('cls' if os.name == 'nt' else 'clear')
 ID= user_id
 total=0
@@ -375,6 +363,7 @@ minimum_followers =30
 minimum_posts =2
 
 for _ in range(120):Thread(target=gg,args=(minimum_followers,minimum_posts,generate_user_id)).start()
+
 
 
 
