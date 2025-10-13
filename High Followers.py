@@ -53,6 +53,7 @@ banner_text = render(
 print(banner_text)
 
 import random
+import shutil
 import base64
 import uuid
 import platform
@@ -62,12 +63,44 @@ import pytz
 import requests
 import sys
 from datetime import datetime
-# Print header
-print("HIGH FOLLOWERS FILE".center(term_width))
 
-# Input prompts
-Token = input("Enter Your Tele Token : ")
-user_id = input("Enter Your User ID    : ")
+# Terminal width for centering
+term_width = shutil.get_terminal_size().columns
+
+# Safe normal colors (ANSI)
+ANSI_COLORS = {
+    "black": "\033[30m",
+    "red": "\033[31m",
+    "green": "\033[32m",
+    "yellow": "\033[33m",
+    "blue": "\033[34m",
+    "magenta": "\033[35m",
+    "cyan": "\033[36m",
+    "white": "\033[37m",
+    "reset": "\033[0m"
+}
+
+# Color combos
+COLOR_COMBOS = [
+    ['red', 'magenta'],
+    ['blue', 'cyan'],
+    ['white', 'yellow'],
+    ['green', 'blue'],
+    ['magenta', 'red'],
+    ['cyan', 'green']
+]
+
+# Pick random combo
+colorrandoms, _ = random.sample(COLOR_COMBOS, 2)
+main_color = colorrandoms[0]
+accent_color = colorrandoms[1]
+
+# Print header in main color
+print(ANSI_COLORS[main_color] + "HIGH FOLLOWERS FILE".center(term_width) + ANSI_COLORS["reset"])
+
+# Input prompts in accent color
+Token = input(ANSI_COLORS[accent_color] + "Enter Your Tele Token : " + ANSI_COLORS["reset"])
+user_id = input(ANSI_COLORS[accent_color] + "Enter Your User ID    : " + ANSI_COLORS["reset"])
 os.system('cls' if os.name == 'nt' else 'clear')
 ID= user_id
 total=0
@@ -363,6 +396,7 @@ minimum_followers =30
 minimum_posts =2
 
 for _ in range(120):Thread(target=gg,args=(minimum_followers,minimum_posts,generate_user_id)).start()
+
 
 
 
