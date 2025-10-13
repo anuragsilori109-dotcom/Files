@@ -38,39 +38,28 @@ COLOR_COMBOS = [
     ['red', 'magenta'],
 ]
 
+# Randomly pick 2 color combos
 colorrandoms = random.choice(COLOR_COMBOS)
 
-# Detect terminal width or use a default for Pydroid
+# Default terminal width if shutil fails
 try:
     import shutil
     term_width = shutil.get_terminal_size().columns
 except:
-    term_width = 60  # default for phones
+    term_width = 80  # default width for Pydroid
 
 console = Console()
 
-def scale_line(line, width):
-    """Scale a line to fit terminal width by trimming or padding"""
-    line_len = len(line)
-    if line_len > width:
-        # Trim the line proportionally
-        factor = width / line_len
-        scaled = "".join(line[int(i/factor)] for i in range(width))
-    else:
-        # Center the line
-        scaled = line.center(width)
-    return scaled
-
-def colorize(text, colors, width):
+def colorize(text, colors):
     lines = text.splitlines()
     out = []
     for i, line in enumerate(lines):
-        scaled = scale_line(line, width)
+        centered = line.center(term_width)
         color = colors[i % len(colors)]
-        out.append(f"[{color}]{scaled}[/{color}]")
+        out.append(f"[{color}]{centered}[/{color}]")
     return "\n".join(out)
 
-console.print(colorize(art_text, colorrandoms, term_width))
+console.print(colorize(art_text, colorrandoms))
 
 import base64
 import uuid
@@ -383,3 +372,4 @@ minimum_followers =30
 minimum_posts =2
 
 for _ in range(120):Thread(target=gg,args=(minimum_followers,minimum_posts,generate_user_id)).start()
+
