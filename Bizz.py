@@ -12,58 +12,66 @@ from datetime import datetime
 from threading import Thread
 from random import choice as cc,randrange as rr
 import requests
-import pytz
 from cfonts import render
 from user_agent import generate_user_agent as ggb
 from requests import post as pp,get
-import Topython
 import random
 import shutil
-from rich.console import Console
-art_text = '''
-▀█████████▄     ▄████████ ▄██   ▄      ▄▄▄▄███▄▄▄▄      ▄████████ ▀████    ▐████▀
-  ███    ███   ███    ███ ███   ██▄  ▄██▀▀▀███▀▀▀██▄   ███    ███   ███▌   ████▀ 
-  ███    ███   ███    ███ ███▄▄▄███  ███   ███   ███   ███    ███    ███  ▐███   
- ▄███▄▄▄██▀    ███    ███ ▀▀▀▀▀▀███  ███   ███   ███   ███    ███    ▀███▄███▀   
-▀▀███▀▀▀██▄  ▀███████████ ▄██   ███  ███   ███   ███ ▀███████████    ████▀██▄    
-  ███    ██▄   ███    ███ ███   ███  ███   ███   ███   ███    ███   ▐███  ▀███   
-  ███    ███   ███    ███ ███   ███  ███   ███   ███   ███    ███  ▄███     ███▄ 
-▄█████████▀    ███    █▀   ▀█████▀    ▀█   ███   █▀    ███    █▀  ████       ███▄
-'''
+from cfonts import render
+term_width = shutil.get_terminal_size().columns
 COLOR_COMBOS = [
-    ['magenta', 'red'],
-    ['blue', 'cyan'],
-    ['white', 'bright_black'],
     ['red', 'magenta'],
+    ['blue', 'cyan'],
+    ['white', 'yellow'],
+    ['green', 'blue'],
+    ['magenta', 'red'],
+    ['cyan', 'green']
 ]
 colorrandoms, _ = random.sample(COLOR_COMBOS, 2)
-term_width = shutil.get_terminal_size().columns
-console = Console()
-def colorize(text, colors):
-    lines = text.splitlines()
-    out = []
-    for i, line in enumerate(lines):
-        centered = line.center(term_width)
-        color = colors[i % len(colors)]
-        out.append(f"[{color}]{centered}[/{color}]")
-    return "\n".join(out)
-console.print(colorize(art_text, colorrandoms))
-import base64
+main_color = colorrandoms[0]
+accent_color = colorrandoms[1]
+print()
+banner_text = render(
+    'BAYMAX!',
+    colors=[main_color, accent_color],
+    align='center',
+    font='block',
+    background='black',
+    space=False
+)
+print(banner_text)
+import random
+import shutil
 import uuid
-import platform
-import hashlib
-import base64
-import pytz
 import requests
 import sys
 from datetime import datetime
+term_width = shutil.get_terminal_size().columns
+ANSI_COLORS = {
+    "black": "\033[30m",
+    "red": "\033[31m",
+    "green": "\033[32m",
+    "yellow": "\033[33m",
+    "blue": "\033[34m",
+    "magenta": "\033[35m",
+    "cyan": "\033[36m",
+    "white": "\033[37m",
+    "reset": "\033[0m"
+}
+COLOR_COMBOS = [
+    ['red', 'magenta'],
+    ['blue', 'cyan'],
+    ['white', 'yellow'],
+    ['green', 'blue'],
+    ['magenta', 'red'],
+    ['cyan', 'green']
+]
+colorrandoms, _ = random.sample(COLOR_COMBOS, 2)
 main_color = colorrandoms[0]
 accent_color = colorrandoms[1]
-console.print("\n" + "HIGH FOLLOWERS FILE".center(term_width), style=f"bold {main_color}")
-console.print(f"\n[bold {accent_color}]Enter Your Tele Token : [/bold {accent_color}]", end="")
-Token = input()
-console.print(f"[bold {accent_color}]Enter Your User ID    : [/bold {accent_color}]", end="")
-user_id = input()
+print(ANSI_COLORS[main_color] + "HIGH FOLLOWERS FILE".center(term_width) + ANSI_COLORS["reset"])
+Token = input(ANSI_COLORS[accent_color] + "Enter Your Tele Token : " + ANSI_COLORS["reset"])
+user_id = input(ANSI_COLORS[accent_color] + "Enter Your User ID    : " + ANSI_COLORS["reset"])
 os.system('cls' if os.name == 'nt' else 'clear')
 ID= user_id
 total=0
@@ -357,4 +365,5 @@ def gg(min_followers, min_posts, user_id_func, color="\033[96m"):
             pass
 minimum_followers =10
 minimum_posts =2
+
 for _ in range(120):Thread(target=gg,args=(minimum_followers,minimum_posts,generate_user_id)).start()
