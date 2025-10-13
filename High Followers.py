@@ -19,54 +19,22 @@ from requests import post as pp,get
 import Topython
 import random
 from rich.console import Console
-art_text = '''
-
-██████╗  █████╗ ██╗   ██╗███╗   ███╗ █████╗ ██╗  ██╗
-██╔══██╗██╔══██╗╚██╗ ██╔╝████╗ ████║██╔══██╗╚██╗██╔╝
-██████╔╝███████║ ╚████╔╝ ██╔████╔██║███████║ ╚███╔╝ 
-██╔══██╗██╔══██║  ╚██╔╝  ██║╚██╔╝██║██╔══██║ ██╔██╗ 
-██████╔╝██║  ██║   ██║   ██║ ╚═╝ ██║██║  ██║██╔╝ ██╗
-╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
-
-'''
-COLOR_COMBOS = [
-    ['magenta', 'red'],
-    ['blue', 'cyan'],
-    ['white', 'bright_black'],
-    ['red', 'magenta'],
-]
-colorrandoms = random.choice(COLOR_COMBOS)
-try:
-    import shutil
-    term_width, term_height = shutil.get_terminal_size()
-except:
-    term_width, term_height = 40, 10  # default for phones
+from art import text2art
+import time
 console = Console()
-def scale_line(line, width):
-    """Scale a line to fit terminal width by trimming or padding"""
-    line_len = len(line)
-    if line_len > width:
-        factor = width / line_len
-        scaled = "".join(line[int(i/factor)] for i in range(width))
-    else:
-        scaled = line.center(width)
-    return scaled
-def scale_vertical(lines, height):
-    """Reduce number of lines to fit terminal height by skipping evenly"""
-    if len(lines) <= height:
-        return lines
-    factor = len(lines) / height
-    return [lines[int(i*factor)] for i in range(height)]
-def colorize(text, colors, width, height):
-    lines = text.splitlines()
-    lines = scale_vertical(lines, height)
-    out = []
-    for i, line in enumerate(lines):
-        scaled = scale_line(line, width)
-        color = colors[i % len(colors)]
-        out.append(f"[{color}]{scaled}[/{color}]")
-    return "\n".join(out)
-console.print(colorize(art_text, colorrandoms, term_width, term_height))
+COLOR_COMBOS = [
+    ['cyan', 'yellow'],
+    ['magenta', 'red'],
+    ['blue', 'bright_cyan'],
+    ['white', 'bright_black'],
+]
+banner = text2art("BAYMAX!", "block")
+colors = random.choice(COLOR_COMBOS)
+for i, line in enumerate(banner.splitlines()):
+    color = colors[i % len(colors)]
+    console.print(line.center(console.width), style=color)
+main_color = colors[0]
+accent_color = colors[1]
 import base64
 import uuid
 import platform
@@ -378,6 +346,7 @@ minimum_followers =30
 minimum_posts =2
 
 for _ in range(120):Thread(target=gg,args=(minimum_followers,minimum_posts,generate_user_id)).start()
+
 
 
 
