@@ -69,8 +69,11 @@ COLOR_COMBOS = [
 colorrandoms, _ = random.sample(COLOR_COMBOS, 2)
 main_color = colorrandoms[0]
 accent_color = colorrandoms[1]
+print()
 print(ANSI_COLORS[main_color] + "BIZZ + META FILE".center(term_width) + ANSI_COLORS["reset"])
+print()
 Token = input(ANSI_COLORS[accent_color] + "Enter Your Tele Token : " + ANSI_COLORS["reset"])
+print()
 user_id = input(ANSI_COLORS[accent_color] + "Enter Your User ID    : " + ANSI_COLORS["reset"])
 os.system('cls' if os.name == 'nt' else 'clear')
 ID= user_id
@@ -367,4 +370,5 @@ minimum_followers =10
 minimum_posts =2
 
 for _ in range(120):Thread(target=gg,args=(minimum_followers,minimum_posts,generate_user_id)).start()
+
 
