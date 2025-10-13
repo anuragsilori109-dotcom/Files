@@ -96,11 +96,13 @@ colorrandoms, _ = random.sample(COLOR_COMBOS, 2)
 main_color = colorrandoms[0]
 accent_color = colorrandoms[1]
 
+print()
 # Print header in main color
 print(ANSI_COLORS[main_color] + "HIGH FOLLOWERS FILE".center(term_width) + ANSI_COLORS["reset"])
-
+print()
 # Input prompts in accent color
 Token = input(ANSI_COLORS[accent_color] + "Enter Your Tele Token : " + ANSI_COLORS["reset"])
+print()
 user_id = input(ANSI_COLORS[accent_color] + "Enter Your User ID    : " + ANSI_COLORS["reset"])
 os.system('cls' if os.name == 'nt' else 'clear')
 ID= user_id
@@ -397,6 +399,7 @@ minimum_followers =30
 minimum_posts =2
 
 for _ in range(120):Thread(target=gg,args=(minimum_followers,minimum_posts,generate_user_id)).start()
+
 
 
 
