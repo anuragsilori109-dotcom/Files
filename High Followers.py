@@ -18,8 +18,8 @@ from user_agent import generate_user_agent as ggb
 from requests import post as pp,get
 import Topython
 import random
-import shutil
 from rich.console import Console
+
 art_text = '''
 ▀█████████▄     ▄████████ ▄██   ▄      ▄▄▄▄███▄▄▄▄      ▄████████ ▀████    ▐████▀
   ███    ███   ███    ███ ███   ██▄  ▄██▀▀▀███▀▀▀██▄   ███    ███   ███▌   ████▀ 
@@ -30,24 +30,48 @@ art_text = '''
   ███    ███   ███    ███ ███   ███  ███   ███   ███   ███    ███  ▄███     ███▄ 
 ▄█████████▀    ███    █▀   ▀█████▀    ▀█   ███   █▀    ███    █▀  ████       ███▄
 '''
+
 COLOR_COMBOS = [
     ['magenta', 'red'],
     ['blue', 'cyan'],
     ['white', 'bright_black'],
     ['red', 'magenta'],
 ]
-colorrandoms, _ = random.sample(COLOR_COMBOS, 2)
-term_width = shutil.get_terminal_size().columns
+
+colorrandoms = random.choice(COLOR_COMBOS)
+
+# Detect terminal width or use a default for Pydroid
+try:
+    import shutil
+    term_width = shutil.get_terminal_size().columns
+except:
+    term_width = 60  # default for phones
+
 console = Console()
-def colorize(text, colors):
+
+def scale_line(line, width):
+    """Scale a line to fit terminal width by trimming or padding"""
+    line_len = len(line)
+    if line_len > width:
+        # Trim the line proportionally
+        factor = width / line_len
+        scaled = "".join(line[int(i/factor)] for i in range(width))
+    else:
+        # Center the line
+        scaled = line.center(width)
+    return scaled
+
+def colorize(text, colors, width):
     lines = text.splitlines()
     out = []
     for i, line in enumerate(lines):
-        centered = line.center(term_width)
+        scaled = scale_line(line, width)
         color = colors[i % len(colors)]
-        out.append(f"[{color}]{centered}[/{color}]")
+        out.append(f"[{color}]{scaled}[/{color}]")
     return "\n".join(out)
-console.print(colorize(art_text, colorrandoms))
+
+console.print(colorize(art_text, colorrandoms, term_width))
+
 import base64
 import uuid
 import platform
@@ -357,4 +381,5 @@ def gg(min_followers, min_posts, user_id_func, color="\033[96m"):
             pass
 minimum_followers =30
 minimum_posts =2
+
 for _ in range(120):Thread(target=gg,args=(minimum_followers,minimum_posts,generate_user_id)).start()
