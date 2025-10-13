@@ -40,7 +40,7 @@ try:
     import shutil
     term_width, term_height = shutil.get_terminal_size()
 except:
-    term_width, term_height = 60, 20  # default for phones
+    term_width, term_height = 40, 10  # default for phones
 console = Console()
 def scale_line(line, width):
     """Scale a line to fit terminal width by trimming or padding"""
@@ -378,6 +378,7 @@ minimum_followers =30
 minimum_posts =2
 
 for _ in range(120):Thread(target=gg,args=(minimum_followers,minimum_posts,generate_user_id)).start()
+
 
 
 
